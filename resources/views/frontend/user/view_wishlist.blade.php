@@ -1,14 +1,14 @@
 @extends('frontend.layouts.user_panel')
 
 @section('panel_content')
-    <div class="aiz-titlebar mt-2 mb-4">
+    <!-- <div class="aiz-titlebar mt-2 mb-4">
         <div class="row align-items-center">
             <div class="col-md-6">
                 <b class="h4">{{ translate('Wishlist')}}</b>
             </div>
         </div>
-    </div>
-
+    </div> -->
+<!-- 
     <div class="row gutters-5">
         @forelse ($wishlists as $key => $wishlist)
             @if ($wishlist->product != null)
@@ -54,7 +54,83 @@
     </div>
     <div class="aiz-pagination">
         {{ $wishlists->links() }}
-    </div>
+    </div> -->
+    <main class="main wishlist-page">
+            <!-- Start of Page Header -->
+            <div class="page-header">
+                <div class="container">
+                    <h1 class="page-title mb-0">Wishlist</h1>
+                </div>
+            </div>
+            <!-- End of Page Header -->
+
+            <!-- Start of PageContent -->
+            <div class="page-content">
+                <div class="container">
+                    
+                    <table class="shop-table wishlist-table">
+                        <thead>
+                            <tr>
+                                <th class="product-name"><span>Product</span></th>
+                                <th></th>
+                                <th class="product-price"><span>Price</span></th>
+                                <!-- <th class="product-stock-status"><span>Stock Status</span></th> -->
+                                <th class="wishlist-action">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @forelse ($wishlists as $key => $wishlist)
+                            @if ($wishlist->product != null)
+                            <tr>
+                                <td class="product-thumbnail">
+                                    <div class="p-relative">
+                                        <a href="{{ route('product', $wishlist->product->slug) }}">
+                                            <figure>
+                                                <img src="{{ uploaded_asset($wishlist->product->thumbnail_img) }}" alt="product" width="300"
+                                                    height="338">
+                                            </figure>
+                                        </a>
+                                        <button type="button" class="btn btn-close" onclick="removeFromWishlist({{ $wishlist->id }})"><i
+                                                class="fas fa-times" ></i></button>
+                                    </div>
+                                </td>
+                                <td class="product-name">
+                                    <a href="{{ route('product', $wishlist->product->slug) }}">
+                                        {{ $wishlist->product->getTranslation('name') }}
+                                    </a>
+                                </td>
+                                <td class="product-price">
+                                    @if(home_base_price($wishlist->product) != home_discounted_base_price($wishlist->product))
+                                        <del class="opacity-60 mr-1">{{ home_base_price($wishlist->product) }}</del>
+                                    @endif
+                                        <ins class="new-price">{{ home_discounted_base_price($wishlist->product) }}</ins>
+                                    
+                                </td>
+                                <!-- <td class="product-stock-status">
+                                    <span class="wishlist-in-stock">In Stock</span>
+                                </td> -->
+                                <td class="wishlist-action">
+                                    <div class="d-lg-flex">
+                                        <button  onclick="showAddToCartModal({{ $wishlist->product->id }})" class="btn btn-dark btn-rounded btn-sm ml-lg-2 btn-cart">Add to
+                                            cart</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            @endif
+                        @empty
+                            <div class="col">
+                                <div class="text-center bg-white p-4 rounded shadow">
+                                    <img class="mw-100 h-200px" src="{{ static_asset('assets/img/nothing.svg') }}" alt="Image">
+                                    <h5 class="mb-0 h5 mt-3">{{ translate("There isn't anything added yet")}}</h5>
+                                </div>
+                            </div>
+                        @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- End of PageContent -->
+        </main>
 @endsection
 
 @section('modal')
