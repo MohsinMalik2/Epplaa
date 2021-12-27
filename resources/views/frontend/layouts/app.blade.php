@@ -77,6 +77,7 @@
 
 
     <link rel="stylesheet" type="text/css" href="{{ static_asset('assets/css/demo2.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ static_asset('assets/css/style.min.css') }}">
     <!--New Css-->
     <script>
         var AIZ = AIZ || {};

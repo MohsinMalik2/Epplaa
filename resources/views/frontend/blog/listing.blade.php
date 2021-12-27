@@ -2,7 +2,7 @@
 
 @section('content')
 
-<section class="pt-4 mb-4">
+<!-- <section class="pt-4 mb-4">
     <div class="container text-center">
         <div class="row">
             <div class="col-lg-6 text-center text-lg-left">
@@ -24,7 +24,7 @@
             </div>
         </div>
     </div>
-</section>
+</section> -->
 
 <section class="pb-4">
     <div class="container">
@@ -66,4 +66,70 @@
         </div>
     </div>
 </section>
+
+  <!-- Start of Main -->
+  <main class="main">
+            <!-- Start of Page Header -->
+            <div class="page-header">
+                <div class="container">
+                    <h1 class="page-title mb-0">{{ translate('Blog')}}</h1>
+                </div>
+            </div>
+            <!-- End of Page Header -->
+
+            <!-- Start of Breadcrumb -->
+            <nav class="breadcrumb-nav mb-6">
+                <div class="container">
+                    <ul class="breadcrumb" style='background:transparent;'>
+                        <li><a href="{{ route('home') }}"> {{ translate('Home')}}</a></li>
+                        <li><a href="{{ route('blog') }}">Blog</a></li>
+                    </ul>
+                </div>
+            </nav>
+            <!-- End of Breadcrumb -->
+
+            <!-- Start of Page Content -->
+            <div class="page-content">
+                <div class="container">
+               
+                    <div class="row grid cols-lg-3 cols-md-2 mb-2" data-grid-options="{
+                        'layoutMode': 'fitRows'
+                        }">
+                        @foreach($blogs as $blog)
+                            <div class="grid-item">
+                                            <article class="post post-mask overlay-zoom br-sm">
+                                                <figure class="post-media">
+                                                    <a href="{{ url("blog").'/'. $blog->slug }}">
+                                                        <img src="{{ uploaded_asset($blog->banner) }}" width="600"
+                                                            height="420" alt="blog">
+                                                    </a>
+                                                </figure>
+                                                <div class="post-details">
+                                                    <div class="post-details-visible">
+                                                        @if($blog->category != null)
+                                                            <div class="post-cats">
+                                                                <a href="{{ url("blog").'/'. $blog->slug }}">{{ $blog->category->category_name }}</a>
+                                                            </div>
+                                                            @endif
+                                                        <h4 class="post-title text-white">
+                                                            <a href="{{ url("blog").'/'. $blog->slug }}">{{ $blog->title }}</a>
+                                                        </h4>
+                                                    </div>
+                                                    <div class="post-meta">
+                                                        {{ $blog->short_description }} - <a href="{{ url("blog").'/'. $blog->slug }}">
+                                            {{ translate('View More') }}
+                                        </a>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+                        @endforeach
+                    </div>
+               
+                  
+                </div>
+            </div>
+            <!-- End of Page Content -->
+        </main>
+        <!-- End of Main -->
 @endsection

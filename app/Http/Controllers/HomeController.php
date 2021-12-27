@@ -651,7 +651,11 @@ class HomeController extends Controller
             return redirect()->route('password.request');
         }
     }
+    public function about_us() {
+     
 
+        return view("frontend.about_us");
+    }
 
     public function all_flash_deals() {
         $today = strtotime(date('Y-m-d H:i:s'));
